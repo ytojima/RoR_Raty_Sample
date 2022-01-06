@@ -1,6 +1,6 @@
 # Rails(6系)でRatyを使った評価機能の実装
 
-[こちらの記事のサンプル](https://toji.tech/rails6%e7%b3%bb%e3%81%a7raty-js%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%9f%e8%a9%95%e4%be%a1%e6%a9%9f%e8%83%bd%e3%81%ae%e5%ae%9f%e8%a3%85/) です。
+[こちらの記事のサンプル](https://toji.tech/rails6%e7%b3%bb%e3%81%a7raty%e3%82%92%e4%bd%bf%e3%81%a3%e3%81%9f%e8%a9%95%e4%be%a1%e6%a9%9f%e8%83%bd%e3%81%ae%e5%ae%9f%e8%a3%85/) です。
 
 Dockerを使用してサンプルを作成しています。  
 Dockerを使用しない場合は、appフォルダ以下で、コマンドを実行してください。
