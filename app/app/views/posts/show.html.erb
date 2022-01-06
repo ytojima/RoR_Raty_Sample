@@ -1,0 +1,68 @@
+<h1>Posts#show</h1>
+<p>Find me in app/views/posts/show.html.erb</p>
+
+<h2>Actions --></h2>
+<ul>
+  <li><%= link_to 'Top', root_path %></li>
+  <li><%= link_to 'Edit', edit_post_path(@post) %></li>
+  <li><%= link_to 'Delete', post_path(@post), method: :delete, data: { confirm: '削除しますか？' } %></li>
+</ul>
+
+<h3>Title --></h3>
+<%= @post.title %>
+
+<h3>Content --></h3>
+<%# simple_formatは、pタグで囲み、改行コードをbrに変換する %>
+<%= simple_format(@post.content) %>
+
+<h3>Review Average --></h3>
+<div id="review_avg" data-score="<%= @review_avg %>"></div>
+<script>
+    $('#review_avg').empty(); // Turbolinksで星が増殖する現象を解消
+    $('#review_avg').raty({
+        readOnly: true,
+        starOff: '<%= asset_path('star-off.png') %>',
+        starOn: '<%= asset_path('star-on.png') %>',
+        starHalf: '<%= asset_path('star-half.png') %>',
+        // divタグのdata-score属性から評価の平均値を呼び出す
+        score: function () {
+            return $(this).attr('data-score');
+        },
+    });
+</script>
+
+<h3>Review --></h3>
+<%# 評価済みの場合は、再評価できないようにする %>
+<% if @review_flg.blank? %>
+
+  <%# 自分自身の投稿には評価できないようにする %>
+  <% if @post.user_id == current_user.id %>
+    <p>自分の投稿には、評価できません。</p>
+  <% else %>
+    <%= form_with model: @review, url: post_reviews_path(@post) do |review| %>
+      <div id="review"></div>
+      <%= review.submit %>
+    <% end %>
+
+    <script>
+        $('#review').empty(); // Turbolinksで星が増殖する現象を解消
+        $('#review').raty({
+            starOff: '<%= asset_path('star-off.png') %>',
+            starOn: '<%= asset_path('star-on.png') %>',
+            starHalf: '<%= asset_path('star-half.png') %>',
+            // 登録するモデル名とカラム名を記述
+            //  送信値として採用される
+            scoreName: 'review[review]',
+            half: true,
+        });
+    </script>
+  <% end %>
+
+<% else %>
+  <p>評価済みです。</p>
+  <ul>
+    <li>
+      <%= link_to '評価を削除', post_review_path(@post), method: :delete, data: { confirm: '評価削除しますか？' } %>
+    </li>
+  </ul>
+<% end %>

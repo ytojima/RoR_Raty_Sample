@@ -1,0 +1,19 @@
+<h1>Posts#index</h1>
+<p>Find me in app/views/posts/index.html.erb</p>
+
+<h2>Actions --></h2>
+<ul>
+  <li><%= link_to 'New Post', new_post_path %></li>
+  <li><%= link_to 'Log Out', destroy_user_session_path, method: :delete, data: { confirm: 'ログアウトしますか？' } %></li>
+</ul>
+
+<h2>Posts --></h2>
+<ul>
+  <% @posts.each do |post| %>
+    <li><%= link_to post.title, post_path(post) %>
+      <ul>
+        <li><small><%= post.user.email %></small></li>
+      </ul>
+    </li>
+  <% end %>
+</ul>
